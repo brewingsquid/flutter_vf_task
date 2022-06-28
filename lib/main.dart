@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,6 +39,25 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // ---------------------------------
+
+  TextEditingController dateTime = TextEditingController();
+
+  void pickDate() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year - 5),
+      lastDate: DateTime(DateTime.now().year + 5),
+    ).then((value) {
+      setState(() {
+        dateTime.text = DateFormat('yyyy-MM-dd – kk:mm').format(value!);
+      });
+    });
+  }
+
+  int tappedCounter = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +81,38 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 20.0),
               TextFormField(
                 decoration: InputDecoration(labelText: 'your name'),
+              ),
+              SizedBox(height: 20.0),
+              TextField(
+                controller: dateTime,
+                decoration: InputDecoration(
+                  labelText: 'your date',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                    onPressed: pickDate,
+                  ),
+                ),
+              ),
+              SizedBox(height: 40.0),
+              Text(
+                'tapped ' + tappedCounter.toString() + ' times',
+                style: TextStyle(fontSize: 30),
+              ),
+              SizedBox(height: 20.0),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    tappedCounter++;
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  color: Colors.blue,
+                  child: Text(
+                    'TAP HERE',
+                    style: TextStyle(fontSize: 30, color: Colors.white),
+                  ),
+                ),
               )
             ],
           ),
