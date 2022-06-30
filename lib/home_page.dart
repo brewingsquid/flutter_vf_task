@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vf_task/square.dart';
+import 'square.dart';
 import 'model/user_model.dart';
 import 'package:intl/intl.dart';
 
@@ -13,12 +13,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // ----------------------------------------------------------------//
-
   // variable
   TextEditingController birthdateField = TextEditingController();
   TextEditingController nameField = TextEditingController();
-  int _tappedCounter = 0;
   int _counter = 0;
   List<User> listUser = [];
 
@@ -51,27 +48,62 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Container(
+        constraints: const BoxConstraints.expand(),
         padding: const EdgeInsets.only(left: 40, right: 40),
-        child: Form(
-          child: ListView(
-            children: <Widget>[
-              SizedBox(height: 20.00),
-              Text(
-                'Let\'s rock the Usecase!',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.grey,
-                ),
+        child: ListView(
+          children: [
+            SizedBox(height: 20.00),
+            Text(
+              'Let\'s rock the Usecase!',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.grey,
               ),
-              SizedBox(height: 20.0),
-              MySquare(),
-              SizedBox(height: 20.00),
-              TextFormField(
-                controller: nameField,
-                decoration: InputDecoration(labelText: 'your name'),
+            ),
+            SizedBox(height: 20.00),
+            Container(
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Colors.grey.shade300,
               ),
-              SizedBox(height: 20.0),
-              /*GestureDetector(
+              child: listUser.isEmpty
+                  ? Center(
+                      child: Text('please add some user'),
+                    )
+                  : Expanded(
+                      flex: 1,
+                      child: ListView.builder(
+                        itemCount: listUser.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {});
+                            },
+                            child: ListTile(
+                              title: Text(
+                                  '${listUser[index].name}  ${listUser[index].birthday}'),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {},
+                                tooltip: 'Delete User',
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+            ),
+
+            SizedBox(height: 20.0),
+            // MySquare(),
+            SizedBox(height: 20.00),
+            TextFormField(
+              controller: nameField,
+              decoration: InputDecoration(labelText: 'your name'),
+            ),
+            SizedBox(height: 20.0),
+            /*GestureDetector(
                 onTap: () => pickDate(),
                 child: Container(
                   padding: const EdgeInsets.all(10.0),
@@ -91,42 +123,46 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),*/
-              TextField(
-                controller: birthdateField,
-                decoration: InputDecoration(
-                  labelText: 'your date',
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.calendar_today),
-                    onPressed: pickDate,
-                  ),
+            TextField(
+              controller: birthdateField,
+              decoration: InputDecoration(
+                labelText: 'your date',
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: pickDate,
                 ),
-                keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 60.0),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    listUser.add(User(
-                        name: nameField.text, birthday: birthdateField.text));
-                  });
-                  print('item added to listUser: $listUser');
-                },
-                child: Container(
-                  padding: EdgeInsets.all(15),
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(height: 60.0),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  listUser.add(User(
+                      name: nameField.text, birthday: birthdateField.text));
+                });
+                print('item added to listUser: $listUser');
+              },
+              child: Container(
+                padding: EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
                   color: Colors.blue,
+                ),
+                child: Center(
                   child: Text(
                     'ADD USER',
                     style: TextStyle(fontSize: 30, color: Colors.white),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addToList,
-        tooltip: 'qee item into list',
+        tooltip: 'add item into list',
         child: const Icon(Icons.add),
       ),
     );
