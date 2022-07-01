@@ -81,11 +81,23 @@ class _MyHomePageState extends State<MyHomePage> {
                               setState(() {});
                             },
                             child: ListTile(
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 10,
+                                horizontal: 10,
+                              ),
+                              leading: CircleAvatar(
+                                radius: 32,
+                                backgroundColor: Colors.blue,
+                              ),
                               title: Text(
                                   '${listUser[index].name}  ${listUser[index].birthday}'),
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete),
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    listUser.removeAt(index);
+                                  });
+                                },
                                 tooltip: 'Delete User',
                               ),
                             ),
@@ -160,11 +172,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      /*floatingActionButton: FloatingActionButton(
         onPressed: _addToList,
         tooltip: 'add item into list',
         child: const Icon(Icons.add),
-      ),
+      ),*/
     );
   }
 }
