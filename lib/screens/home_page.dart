@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'square.dart';
-import 'model/user_model.dart';
+import '../widgets/square.dart';
+import '../models/user_model.dart';
 import 'package:intl/intl.dart';
 
 class MyHomePage extends StatefulWidget {
