@@ -66,6 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.grey.shade300,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.0),
+                    blurRadius: 6.0,
+                  ),
+                ],
               ),
               child: listUser.isEmpty
                   ? Center(
