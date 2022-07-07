@@ -1,24 +1,25 @@
 part of 'user_bloc.dart';
 
-
-import 'dart:html';
-
-import 'package:equatable/equatable.dart';
-
-abstract class UserState extends Equatable {
+abstract class UserState /* extends Equatable*/ {
   const UserState();
 
-  @override
-  List<Object> get props => [];
+  // @override
+  // List<Object> get props => [];
 }
 
-class UserLoading extends UserState{}
+// state 1
+class UserLoading extends UserState {}
 
-class UserLoaded extends UserState{
-  final List<User> user;
+// state 2
+class UserFailed extends UserState {}
 
-  const TodosLoaded({this.user = const <User>[]});
+// state 3
+class UserLoaded extends UserState {
+  final List<User>? user;
+  // with Equatable use line below
+  // const UserLoaded({this.user = const <User>[]});
+  const UserLoaded({this.user});
 
-  @override
-  List<Object> get props => [user];
+  // @override
+  // List<Object> get props => [user!];
 }
